@@ -21,7 +21,7 @@ public class VCipher
   public static Scanner sc = new Scanner(System.in);
   public static String key = "", keyLarge= "", plainText = "", encryptedText  = "", decryptedText = "";
   public static ArrayList<Integer> spacesAt = new ArrayList<Integer>();
-  public static int ArrayCounter =0, textCode = 0, keyCode = 0;
+  public static int ArrayCounter =0, textCode = 0, keyCode = 0, spaceIndex =0;
   // key 
   // the quick brown fox jumped over the lazy dog
   
@@ -32,6 +32,7 @@ public class VCipher
       keyLarge = keyLarge.concat(str);
     }
   }
+
   public static void IndexSpaces(String str)
   {
     for(int b = 0; b < str.length(); b++)
@@ -73,6 +74,7 @@ public class VCipher
       encryptedText = encryptedText.concat( "" + (char)(Evalue + 97));
     }
   }
+
   public static String SpacesHere()
   {
     String result = "";
@@ -82,7 +84,17 @@ public class VCipher
     }
     return result;
   }
-  
+  public static void AddTheSpaces()
+  {
+     String result = encryptedText;
+     for(int f = 0; f < spacesAt.size(); f++)
+    {
+      spaceIndex = spacesAt.get(f);
+      result = encryptedText.substring(0,spaceIndex) + " " + encryptedText.substring(spaceIndex);
+      encryptedText = result;
+    }
+  } 
+
   public static void main(String[] args)
   {
     System.out.println("Please Enter an Encryption Key");
@@ -102,9 +114,11 @@ public class VCipher
     System.out.println("KEY-repeated:\n" + keyLarge + "\n");     //System.out.print("\t Number of characters:" + keyLarge.length() + "\n"); 
     System.out.println("ORIGINAL TEXT: \n" + plainText + "\n");    //System.out.print("\t Number of characters:" + plainText.length() + "\n");
     System.out.println("ENCRYPTED TEXT: \n" + encryptedText + "\n");
-    System.out.println("SPACES AT INDEXES: " + SpacesHere() + "\n");
+    System.out.println("SPACES AT INDEXES: \n" + SpacesHere() + "\n");
     /* Remembe that once a space is added to the beginning of a string, it incremets the indices
-     * of all the following elements, and by exxtention, the following spaces.
+     * of all the following elements, and by extention, the following spaces.
      */
+    AddTheSpaces();
+    System.out.println("ENCRYPTED TEXT WITH SPACES: \n" + encryptedText + "\n");
   }
 }
